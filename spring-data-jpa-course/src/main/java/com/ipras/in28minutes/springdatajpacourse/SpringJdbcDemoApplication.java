@@ -11,16 +11,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Date;
 
-@SpringBootApplication
-public class SpringDataJpaCourseApplication implements CommandLineRunner {
+// @SpringBootApplication
+public class SpringJdbcDemoApplication implements CommandLineRunner {
 
-	Logger logger = LoggerFactory.getLogger(SpringDataJpaCourseApplication.class);
+	Logger logger = LoggerFactory.getLogger(SpringJdbcDemoApplication.class);
 
 	@Autowired
 	PersonJdbcDao personDao;
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringDataJpaCourseApplication.class, args);
+		SpringApplication.run(SpringJdbcDemoApplication.class, args);
 	}
 
 	@Override

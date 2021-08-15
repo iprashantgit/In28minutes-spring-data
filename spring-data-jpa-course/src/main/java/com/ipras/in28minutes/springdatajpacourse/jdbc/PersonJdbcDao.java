@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-@Repository
+// @Repository
 public class PersonJdbcDao {
 
     @Autowired
