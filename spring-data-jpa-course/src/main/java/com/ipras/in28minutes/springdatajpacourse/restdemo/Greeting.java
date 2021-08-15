@@ -1,4 +1,4 @@
-package com.ipras.in28minutes.springdatajpacourse;
+package com.ipras.in28minutes.springdatajpacourse.restdemo;
 
 public class Greeting {
 
