@@ -2,6 +2,7 @@ package com.ipras.in28minutes.springdatajpacourse;
 
 import com.ipras.in28minutes.springdatajpacourse.entity.Person;
 import com.ipras.in28minutes.springdatajpacourse.repository.PersonRepository;
+import com.ipras.in28minutes.springdatajpacourse.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class SpringJpaDemoApplication implements CommandLineRunner {
 	@Autowired
 	PersonRepository personRepository;
 
+	@Autowired
+	StudentRepository studentRepository;
+
 	Logger logger = LoggerFactory.getLogger(SpringJpaDemoApplication.class);
 
 	public static void main(String[] args) {
@@ -25,6 +29,8 @@ public class SpringJpaDemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		// studentRepository.saveStudentWithPassport();
 
 //		logger.info("All Users -> {}", personRepository.findAll());
 //		logger.info("Get User -> {}", personRepository.findById(10001));
