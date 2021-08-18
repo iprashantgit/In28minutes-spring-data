@@ -1,6 +1,9 @@
 package com.ipras.in28minutes.springdatajpacourse;
 
+import com.ipras.in28minutes.springdatajpacourse.entity.FullTimeEmployee;
+import com.ipras.in28minutes.springdatajpacourse.entity.PartTimeEmployee;
 import com.ipras.in28minutes.springdatajpacourse.entity.Person;
+import com.ipras.in28minutes.springdatajpacourse.repository.EmployeeRepository;
 import com.ipras.in28minutes.springdatajpacourse.repository.PersonRepository;
 import com.ipras.in28minutes.springdatajpacourse.repository.StudentRepository;
 import org.slf4j.Logger;
@@ -10,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @SpringBootApplication
@@ -21,6 +25,9 @@ public class SpringJpaDemoApplication implements CommandLineRunner {
 	@Autowired
 	StudentRepository studentRepository;
 
+	@Autowired
+	private EmployeeRepository employeeRepository;
+
 	Logger logger = LoggerFactory.getLogger(SpringJpaDemoApplication.class);
 
 	public static void main(String[] args) {
@@ -29,6 +36,17 @@ public class SpringJpaDemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		// Jack FullTimeEmployee salary - 10000$
+		// Jill PartTimeEmployee - 50$ per hour
+		employeeRepository.insert(new PartTimeEmployee("Jill", new BigDecimal("50")));
+		employeeRepository.insert(new FullTimeEmployee("Jack", new BigDecimal("10000")));
+
+		logger.info("Full Time Employees -> {}",
+				employeeRepository.retrieveAllFullTimeEmployees());
+
+		logger.info("Part Time Employees -> {}",
+				employeeRepository.retrieveAllPartTimeEmployees());
 
 		// studentRepository.saveStudentWithPassport();
 
