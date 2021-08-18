@@ -1,6 +1,7 @@
 package com.ipras.in28minutes.springdatajpacourse.repository;
 
 import com.ipras.in28minutes.springdatajpacourse.entity.Course;
+import com.ipras.in28minutes.springdatajpacourse.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +46,68 @@ public class JPQLTest {
 
         logger.info("Select  c  From Course c where name like '%100 Steps'-> {}",resultList);
         //[Course[Web Services in 100 Steps], Course[Spring Boot in 100 Steps]]
+    }
+
+    @Test
+    public void jpql_courses_without_students() {
+        TypedQuery<Course> query = entityManager.createQuery("Select c from Course c where c.students is empty", Course.class);
+        List<Course> resultList = query.getResultList();
+        logger.info("Results -> {}", resultList);
+        // [Course[Spring in 50 Steps]]
+    }
+
+    @Test
+    public void jpql_courses_with_atleast_2_students() {
+        TypedQuery<Course> query = entityManager.createQuery("Select c from Course c where size(c.students) >= 2", Course.class);
+        List<Course> resultList = query.getResultList();
+        logger.info("Results -> {}", resultList);
+        //[Course[JPA in 50 Steps]]
+    }
+
+    @Test
+    public void jpql_students_with_passports_in_a_certain_pattern() {
+        TypedQuery<Student> query = entityManager.createQuery("Select s from Student s where s.passport.number like '%1234%'", Student.class);
+        List<Student> resultList = query.getResultList();
+        logger.info("Results -> {}", resultList);
+    }
+
+    //like
+    //BETWEEN 100 and 1000
+    //IS NULL
+    //upper, lower, trim, length
+
+    //JOIN => Select c, s from Course c JOIN c.students s
+    //LEFT JOIN => Select c, s from Course c LEFT JOIN c.students s
+    //CROSS JOIN => Select c, s from Course c, Student s
+    //3 and 4 =>3 * 4 = 12 Rows
+    @Test
+    public void join(){
+        Query query = entityManager.createQuery("Select c, s from Course c JOIN c.students s");
+        List<Object[]> resultList = query.getResultList();
+        logger.info("Results Size -> {}", resultList.size());
+        for(Object[] result:resultList){
+            logger.info("Course{} Student{}", result[0], result[1]);
+        }
+    }
+
+    @Test
+    public void left_join(){
+        Query query = entityManager.createQuery("Select c, s from Course c LEFT JOIN c.students s");
+        List<Object[]> resultList = query.getResultList();
+        logger.info("Results Size -> {}", resultList.size());
+        for(Object[] result:resultList){
+            logger.info("Course{} Student{}", result[0], result[1]);
+        }
+    }
+
+    @Test
+    public void cross_join(){
+        Query query = entityManager.createQuery("Select c, s from Course c, Student s");
+        List<Object[]> resultList = query.getResultList();
+        logger.info("Results Size -> {}", resultList.size());
+        for(Object[] result:resultList){
+            logger.info("Course{} Student{}", result[0], result[1]);
+        }
     }
 
 }
